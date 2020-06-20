@@ -1,14 +1,18 @@
 version: '3.1'
+
+volumes:
+    jenkins-data:
+
 services:
 
-  jenkins-server:
-    build: .
-    container_name: jenkins
+  jenkins:
+    image: jenkinsci/blueocean
     restart: always
     ports:
       - 8080:8080
       - 50000:50000
     tty: true
     volumes:
-      - ./jenkins-data:/var/jenkins_home
-      - ./sock:/var/run/docker.sock
+      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - $HOME:/home
